@@ -2,13 +2,13 @@ import Control.Monad.ST
 import Data.Array.ST
 import Data.STRef
 
-data PoolAllocator a = PoolAllocator {
+data PoolAllocator s = PoolAllocator {
     blockSize :: Int, 
     blockCount :: Int,
-    freeStack :: FreeBlocks a
+    freeStack :: STRef s [Int]
 }
 
-createPool :: Int -> Int -> ST a (PoolAllocator a)
+createPool :: Int -> Int -> ST s (PoolAllocator s)
 createPool blockSize blockCount = do
     freeBlocks <- newSTRef [0..blockCount - 1]
     return $ PoolAllocator {
@@ -17,7 +17,7 @@ createPool blockSize blockCount = do
         freeBlocks = freeBlocks
     }
 
-allocateBlock :: PoolAllocator a -> ST a (Maybe Int)
+allocateBlock :: PoolAllocator s -> ST s (Maybe Int)
 allocateBlock allocator = do
     freeBlocks <- readSTRef (freeBlocks allocator)
     case freeBlocks of
@@ -26,10 +26,10 @@ allocateBlock allocator = do
             writeSTRef (freeBlocks allocator) rest
             return (Just idx)
 
-deallocateBlock :: PoolAllocator a -> Int -> ST a ()
+deallocateBlock :: PoolAllocator s -> Int -> ST s ()
 deallocateBlock allocator idx = do
     modifySTRef' (freeBlocks allocator) (idx :)
 
-deallocatePool :: PoolAllocator a -> ST a ()
-deallaocatePool allocator = do
-    writeSTRef (freeBlocks allocator) [0..blockCount allocator - 1]
+deallocatePool :: PoolAllocator s -> ST s ()
+deallocatePool allocator = do
+    writeSTRef (freeBlocks allocator) [0 .. blockCount allocator - 1]
