@@ -1,35 +1,61 @@
-cabal-version:       2.2
+cabal-version: 2.2
+name:           accocators
+version:        0.1.0.0
+author:         Рябухина Мария
+maintainer:     Ryabukhina_Mariya@mail.ru
+license:        MIT
+license-file:   LICENSE
+build-type:     Simple
+extra-source-files:
+    README.md
+    CHANGELOG.md
 
-name:                allocators
-version:             0.1.0.0
--- synopsis:
--- description:
-homepage:            https://github.com/githubuser/allocators#readme
-license:             BSD-3-Clause
-license-file:        LICENSE
-author:              Author name here
-maintainer:          example@example.com
-copyright:           2026 Author name here
-category:            Web
-build-type:          Simple
-extra-source-files:  README.md
-                     CHANGELOG.md
+library
+  exposed-modules:
+      FreeListAllocator
+      PoolAllocator
+  other-modules:
+      Paths_accocators
+  autogen-modules:
+      Paths_accocators
+  hs-source-dirs:
+      src
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints
+  build-depends:
+      base >=4.7 && <5
+    , containers
+  default-language: Haskell2010
 
-executable allocators
-  hs-source-dirs:      app
-  main-is:             Main.hs
-  default-language:    Haskell2010
-  build-depends:       base >= 4.7 && < 5
-  ghc-options:         -Wall
-                       -Wcompat
-                       -Widentities
-                       -Wincomplete-record-updates
-                       -Wincomplete-uni-patterns
-                       -Wmissing-export-lists
-                       -Wmissing-home-modules
-                       -Wpartial-fields
-                       -Wredundant-constraints
+executable accocators-exe
+  main-is: Main.hs
+  other-modules:
+      Paths_accocators
+  autogen-modules:
+      Paths_accocators
+  hs-source-dirs:
+      app
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      accocators
+    , base >=4.7 && <5
+    , containers
+  default-language: Haskell2010
 
-source-repository head
-  type:     git
-  location: https://github.com/githubuser/allocators
+test-suite accocators-test
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  other-modules:
+      TestFreeListAllocator
+      TestPoolAllocator
+      Paths_accocators
+  autogen-modules:
+      Paths_accocators
+  hs-source-dirs:
+      test
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      accocators
+    , base >=4.7 && <5
+    , containers
+    , hedgehog
+  default-language: Haskell2010
