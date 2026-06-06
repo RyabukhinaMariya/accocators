@@ -1,27 +1,15 @@
 cabal-version: 2.2
 
--- This file has been generated from package.yaml by hpack version 0.39.1.
---
--- see: https://github.com/sol/hpack
-
 name:           accocators
 version:        0.1.0.0
-description:    Please see the README on GitHub at <https://github.com/githubuser/accocators#readme>
-homepage:       https://github.com/githubuser/accocators#readme
-bug-reports:    https://github.com/githubuser/accocators/issues
-author:         Author name here
-maintainer:     example@example.com
-copyright:      2026 Author name here
-license:        BSD-3-Clause
+author:         Рябухина Мария
+maintainer:     Ryabukhina_Mariya@mail.ru
+license:        MIT
 license-file:   LICENSE
 build-type:     Simple
 extra-source-files:
     README.md
     CHANGELOG.md
-
-source-repository head
-  type: git
-  location: https://github.com/githubuser/accocators
 
 library
   exposed-modules:
