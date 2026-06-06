@@ -48,7 +48,7 @@ deallocateBlock :: PoolAllocator s -> Int -> ST s ()
 | :-------- | :------- | :------------------------- |
 | `allocator` | `PoolAllocator s` | Pool Allocator |
 
-### Free List Allocator
+### Free List Allocator:
 
 #### createPool
 
